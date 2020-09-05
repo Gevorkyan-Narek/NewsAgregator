@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NewsAgregator</string>
+    <string name="options">Настройки</string>
+    <string name="_4pda">4PDA</string>
 </resources>
