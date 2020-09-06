@@ -12,7 +12,7 @@
         style="@style/BottomSheetLabel"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#39673AB7"
+        android:background="#40AAAAAA"
         android:gravity="center"
         android:text="@string/options"
         app:layout_constraintStart_toStartOf="parent"

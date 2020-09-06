@@ -1,24 +1,28 @@
-package com.cyclone.newsagregator
+package com.cyclone.newsagregator.view
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.cyclone.newsagregator.adapter.LinksAdapter
+import com.cyclone.newsagregator.R
+import com.cyclone.newsagregator.entities.Link
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_sheet.*
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var newsFragment: NewsPagerFragment
+
+    private var links = arrayListOf(
+        Link("4PDA", true, "4pda.ru"),
+        Link("Habr", true, "habr.ru"),
+        Link("SSAU", false, "ssau.ru")
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val links = arrayListOf(
-            Link("4PDA", true, "4pda.ru"),
-            Link("Habr", true, "habr.ru"),
-            Link("SSAU", false, "ssau.ru")
-        )
 
         val bottomSheetBehavior = BottomSheetBehavior.from(layout_bottom_sheet)
         bottomSheetBehavior.isHideable = false
@@ -28,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                 when (newState) {
                     BottomSheetBehavior.STATE_COLLAPSED -> {
                         Log.d("State:", "Collapsed")
+                        update()
                     }
                     BottomSheetBehavior.STATE_EXPANDED -> {
                         Log.d("State:", "Expanded")
@@ -53,5 +58,12 @@ class MainActivity : AppCompatActivity() {
         })
 
         links_recycler.adapter = LinksAdapter(links)
+        newsFragment = NewsPagerFragment(links)
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragment, newsFragment).commit()
+    }
+
+    fun update() {
+        newsFragment.update(links.getEnabledLinksArray())
     }
 }

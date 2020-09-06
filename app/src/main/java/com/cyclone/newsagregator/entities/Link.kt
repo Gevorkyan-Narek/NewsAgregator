@@ -1,4 +1,4 @@
-package com.cyclone.newsagregator
+package com.cyclone.newsagregator.entities
 
 data class Link (
     val name: String,
