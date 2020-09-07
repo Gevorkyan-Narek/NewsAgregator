@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.cyclone.newsagregator.R
 import com.cyclone.newsagregator.adapter.NewsAdapter
 import com.cyclone.newsagregator.adapter.NewsPagerAdapter
@@ -22,17 +21,16 @@ class NewsObjectFragment : Fragment(R.layout.news_object_fragment) {
         arguments?.takeIf {
             it.containsKey(NewsPagerAdapter.CURRENT_TAB)
         }?.apply {
-            if (getString(NewsPagerAdapter.CURRENT_TAB) == "4PDA") {
-                connect4PDA()
+            when (getString(NewsPagerAdapter.CURRENT_TAB)) {
+                "4PDA" -> RssService.getRss4PDA()!!.getFeed().connect()
+                "Habr" -> RssService.getRssHabr()!!.getNews().connect()
             }
         }
     }
 
-
-    private fun connect4PDA() {
-        RssService.getApi4PDA().getFeed().enqueue(object : Callback<RssFeed> {
+    private fun Call<RssFeed>.connect() {
+        enqueue(object : Callback<RssFeed> {
             override fun onResponse(call: Call<RssFeed>, response: Response<RssFeed>) {
-                Log.d("Response", "Start")
                 if (response.isSuccessful) {
                     val body = response.body()?.channel
                     if (body != null) {
@@ -48,15 +46,14 @@ class NewsObjectFragment : Fragment(R.layout.news_object_fragment) {
             }
 
             override fun onFailure(call: Call<RssFeed>, t: Throwable) {
-                Log.d("Failure", "Start")
                 if (call.isCanceled) {
                     Log.d("Failure", "call was cancelled forcefully")
                 } else {
                     Log.d("Failure", t.localizedMessage!!)
-                    Log.d("Failure", t.suppressed.contentToString())
                     Log.d("Failure", call.request().url().toString())
                 }
             }
         })
     }
+
 }

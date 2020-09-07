@@ -3,8 +3,8 @@ package com.cyclone.newsagregator.network
 import retrofit2.Call
 import retrofit2.http.GET
 
-interface RSS {
+interface Habr {
 
-    @GET("feed/")
-    fun getFeed(): Call<RssFeed>
+    @GET("news/")
+    fun getNews(): Call<RssFeed>
 }

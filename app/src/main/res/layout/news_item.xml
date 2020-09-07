@@ -12,12 +12,7 @@
         style="@style/NewsItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Title" />
-
-    <TextView
-        android:id="@+id/creator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="textEnd"
-        tools:text="Creator" />
+        tools:text="Title"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"/>
 </LinearLayout>

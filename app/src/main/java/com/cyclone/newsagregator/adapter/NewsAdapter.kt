@@ -9,21 +9,20 @@ import com.cyclone.newsagregator.R
 import com.cyclone.newsagregator.network.RssItem
 import kotlinx.android.synthetic.main.news_item.view.*
 
-class NewsAdapter(var news: List<RssItem>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter(var news: List<RssItem>) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.title
-        val creator: TextView = itemView.creator
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.news_item, parent, false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.news_item, parent, false)
         return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text = news[position].title
-        holder.creator.text = news[position].creator
     }
 
     override fun getItemCount(): Int = news.size

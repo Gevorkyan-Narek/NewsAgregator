@@ -13,8 +13,4 @@ data class RssItem  (
     @field:Element(name = "link")
     @param:Element(name = "link")
     var link: String,
-
-    @field:Element(name = "creator")
-    @param:Element(name = "creator")
-    var creator: String
 )
