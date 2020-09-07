@@ -1,18 +1,18 @@
 package com.cyclone.newsagregator.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.cyclone.newsagregator.adapter.LinksAdapter
 import com.cyclone.newsagregator.R
+import com.cyclone.newsagregator.adapter.LinksAdapter
 import com.cyclone.newsagregator.entities.Link
+import com.cyclone.newsagregator.getEnabledLinksArray
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_sheet.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var newsFragment: NewsPagerFragment
+    private lateinit var newsFragment: NewsPagerFragment
 
     private var links = arrayListOf(
         Link("4PDA", true, "4pda.ru"),
@@ -31,22 +31,9 @@ class MainActivity : AppCompatActivity() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when (newState) {
                     BottomSheetBehavior.STATE_COLLAPSED -> {
-                        Log.d("State:", "Collapsed")
                         update()
                     }
-                    BottomSheetBehavior.STATE_EXPANDED -> {
-                        Log.d("State:", "Expanded")
-                    }
-                    BottomSheetBehavior.STATE_DRAGGING -> {
-
-                    }
-                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {
-
-                    }
-                    BottomSheetBehavior.STATE_HIDDEN -> {
-
-                    }
-                    BottomSheetBehavior.STATE_SETTLING -> {
+                    else -> {
 
                     }
                 }
