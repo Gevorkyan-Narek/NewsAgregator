@@ -1,6 +1,5 @@
 package com.cyclone.newsagregator.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import com.cyclone.newsagregator.network.CallBackLink
 import com.cyclone.newsagregator.network.RssItem
 import kotlinx.android.synthetic.main.news_item.view.*
 
-class NewsAdapter(var news: List<RssItem>, var callBackLink: CallBackLink) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter(private var news: MutableList<RssItem>, private var callBackLink: CallBackLink) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.title
@@ -28,6 +27,11 @@ class NewsAdapter(var news: List<RssItem>, var callBackLink: CallBackLink) : Rec
         holder.itemView.setOnClickListener {
             callBackLink.openLink(news[position].link)
         }
+    }
+
+    fun updateNews(news: List<RssItem>, position: Int) {
+        this.news.addAll(news)
+        notifyItemInserted(position)
     }
 
     override fun getItemCount(): Int = news.size

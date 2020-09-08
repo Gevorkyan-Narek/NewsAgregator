@@ -13,5 +13,5 @@ data class RssChannel (
 
     @field:ElementList(name = "item", inline = true)
     @param:ElementList(name = "item", inline = true)
-    var item: List<RssItem>
+    var item: MutableList<RssItem>
 )

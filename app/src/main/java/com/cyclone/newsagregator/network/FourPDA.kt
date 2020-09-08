@@ -2,10 +2,10 @@ package com.cyclone.newsagregator.network
 
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 
-interface FourPDA {
+interface FourPDA: RSS {
 
     @GET("feed")
-    fun getFeed(): Call<RssFeed>
-
+    override fun getFeed(): Call<RssFeed>
 }

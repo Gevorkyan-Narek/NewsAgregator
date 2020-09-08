@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private var links = arrayListOf(
         Link("4PDA", true, "4pda.ru"),
-        Link("Habr", true, "habr.ru"),
+        Link("Habr", true, "habr.com/ru/rss/"),
         Link("SSAU", false, "ssau.ru")
     )
 
