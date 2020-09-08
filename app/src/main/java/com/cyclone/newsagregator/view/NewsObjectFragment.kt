@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.cyclone.newsagregator.R
 import com.cyclone.newsagregator.adapter.NewsAdapter
 import com.cyclone.newsagregator.adapter.NewsPagerAdapter
+import com.cyclone.newsagregator.network.CallBackLink
 import com.cyclone.newsagregator.network.RssFeed
 import com.cyclone.newsagregator.network.RssService
 import kotlinx.android.synthetic.main.news_object_fragment.*
@@ -15,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NewsObjectFragment : Fragment(R.layout.news_object_fragment) {
+class NewsObjectFragment(var callBackLink: CallBackLink) : Fragment(R.layout.news_object_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.takeIf {
@@ -34,12 +35,13 @@ class NewsObjectFragment : Fragment(R.layout.news_object_fragment) {
                 if (response.isSuccessful) {
                     val body = response.body()?.channel
                     if (body != null) {
-                        newsRecycler.adapter = NewsAdapter(body.item)
-                        val dividerItemDecoration = DividerItemDecoration(
-                            newsRecycler.context,
-                            DividerItemDecoration.VERTICAL
+                        newsRecycler.adapter = NewsAdapter(body.item, callBackLink)
+                        newsRecycler.addItemDecoration(
+                            DividerItemDecoration(
+                                newsRecycler.context,
+                                DividerItemDecoration.VERTICAL
+                            )
                         )
-                        newsRecycler.addItemDecoration(dividerItemDecoration)
                     }
 
                 } else Log.d("Response", response.message())

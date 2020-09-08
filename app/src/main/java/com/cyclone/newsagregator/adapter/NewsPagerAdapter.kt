@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.cyclone.newsagregator.entities.Link
+import com.cyclone.newsagregator.network.CallBackLink
 import com.cyclone.newsagregator.view.NewsObjectFragment
 
-class NewsPagerAdapter(fragment: Fragment, private var links: ArrayList<Link>) :
+class NewsPagerAdapter(fragment: Fragment, private var links: ArrayList<Link>, private var callBackLink: CallBackLink) :
     FragmentStateAdapter(fragment) {
 
     companion object {
@@ -16,7 +17,7 @@ class NewsPagerAdapter(fragment: Fragment, private var links: ArrayList<Link>) :
     override fun getItemCount() = links.size
 
     override fun createFragment(position: Int): Fragment {
-        val newsFragment = NewsObjectFragment()
+        val newsFragment = NewsObjectFragment(callBackLink)
         newsFragment.arguments = Bundle().apply {
             putString(CURRENT_TAB, links[position].name)
         }

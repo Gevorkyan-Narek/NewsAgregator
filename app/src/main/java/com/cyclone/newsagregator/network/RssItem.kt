@@ -12,5 +12,5 @@ data class RssItem  (
 
     @field:Element(name = "link")
     @param:Element(name = "link")
-    var link: String,
+    var link: String
 )
