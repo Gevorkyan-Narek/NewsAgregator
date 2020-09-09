@@ -18,9 +18,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var newsFragment: NewsPagerFragment
 
     private var links = arrayListOf(
-        Link("4PDA", true, "4pda.ru"),
-        Link("Habr", true, "habr.com/ru/rss/"),
-        Link("SSAU", false, "ssau.ru")
+        Link("4PDA", true),
+        Link("Habr", true),
+        Link("VC", true),
+        Link("Samara", true),
+        Link("Technology", true),
+        Link("Science", true),
+        Link("CyberSport", true)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -3,7 +3,6 @@ package com.cyclone.newsagregator.view
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +18,7 @@ import retrofit2.Response
 
 class NewsObjectFragment(var callBackLink: CallBackLink) : Fragment(R.layout.news_object_fragment) {
 
-    private lateinit var service: RSS
+    private var habr: Habr? = null
     private var currentPage = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,16 +26,25 @@ class NewsObjectFragment(var callBackLink: CallBackLink) : Fragment(R.layout.new
             it.containsKey(NewsPagerAdapter.CURRENT_TAB)
         }?.apply {
             when (getString(NewsPagerAdapter.CURRENT_TAB)) {
-                "4PDA" -> service = RssService.getRss4PDA()!!
-                "Habr" -> service = RssService.getRssHabr()!!
+                "4PDA" -> RssService.getRss4PDA()?.getFeed()?.connect()
+                "Habr" -> {
+                    habr = RssService.getRssHabr()
+                    habr?.getFeed()?.connect()
+                }
+                "VC" -> RssService.getRssVC()?.getFeed()?.connect()
+                "Samara" -> RssService.getRssYandex()?.getFeed()?.connect()
+                "Gadgets" -> RssService.getRssYandex()?.getGadgets()?.connect()
+                "Technology" -> RssService.getRssYandex()?.getComputers()?.connect()
+                "Science" -> RssService.getRssYandex()?.getScience()?.connect()
+                "CyberSport" -> RssService.getRssYandex()?.getCyberSport()?.connect()
             }
-            service.getFeed().connect()
         }
     }
 
     private fun Call<RssFeed>.connect() {
         enqueue(object : Callback<RssFeed> {
             override fun onResponse(call: Call<RssFeed>, response: Response<RssFeed>) {
+                Log.d("Response", response.raw().request().url().toString())
                 if (response.isSuccessful) {
                     val body = response.body()?.channel
                     if (body != null) {
@@ -47,7 +55,7 @@ class NewsObjectFragment(var callBackLink: CallBackLink) : Fragment(R.layout.new
                                 DividerItemDecoration.VERTICAL
                             )
                         )
-                        if (service !is FourPDA)
+                        if (habr != null)
                             newsRecycler.addOnScrollListener(object :
                                 RecyclerView.OnScrollListener() {
                                 override fun onScrollStateChanged(
@@ -62,7 +70,7 @@ class NewsObjectFragment(var callBackLink: CallBackLink) : Fragment(R.layout.new
                                     if (lastItem == newsRecycler.adapter?.itemCount) {
                                         currentPage++
                                         Log.d("Recycler", "CurrentPage: $currentPage")
-                                        service.newPage(currentPage)
+                                        habr!!.newPage(currentPage)
                                             .changePage(recyclerView.adapter!!.itemCount)
                                     }
                                 }

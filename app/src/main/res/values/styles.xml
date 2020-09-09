@@ -8,7 +8,7 @@
     </style>
 
     <style name="BottomSheetLabel">
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
 
