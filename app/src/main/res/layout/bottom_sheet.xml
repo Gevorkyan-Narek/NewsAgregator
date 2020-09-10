@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    app:behavior_peekHeight="50dp"
+    app:behavior_peekHeight="40dp"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <TextView
         android:id="@+id/head"
         style="@style/BottomSheetLabel"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#40AAAAAA"
         android:gravity="center"
         android:text="@string/options"

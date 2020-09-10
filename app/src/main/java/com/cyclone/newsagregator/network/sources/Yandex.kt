@@ -1,5 +1,7 @@
-package com.cyclone.newsagregator.network
+package com.cyclone.newsagregator.network.sources
 
+import com.cyclone.newsagregator.network.rss.RSS
+import com.cyclone.newsagregator.network.rss.RssFeed
 import retrofit2.Call
 import retrofit2.http.GET
 

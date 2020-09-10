@@ -1,4 +1,4 @@
-package com.cyclone.newsagregator.network
+package com.cyclone.newsagregator.network.rss
 
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Root

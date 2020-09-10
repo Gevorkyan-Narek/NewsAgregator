@@ -11,6 +11,9 @@ import com.cyclone.newsagregator.R
 import com.cyclone.newsagregator.adapter.NewsAdapter
 import com.cyclone.newsagregator.adapter.NewsPagerAdapter
 import com.cyclone.newsagregator.network.*
+import com.cyclone.newsagregator.network.rss.RssFeed
+import com.cyclone.newsagregator.network.rss.RssService
+import com.cyclone.newsagregator.network.sources.Habr
 import kotlinx.android.synthetic.main.news_object_fragment.*
 import retrofit2.Call
 import retrofit2.Callback
