@@ -2,7 +2,7 @@ package com.cyclone.newsagregator.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
+import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.cyclone.newsagregator.R
@@ -15,16 +15,15 @@ class WebViewFragment : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.news_webview)
 
+        webView.webViewClient = WebViewClient()
+        webView.webChromeClient = WebChromeClient()
         val link = intent.extras?.getString("link")
+        webView.settings.javaScriptEnabled = true
 
         if (link != null)
-            Log.d("link", link)
+            webView.loadUrl(link)
         else
-            Log.d("link", "empty")
+            webView.loadData("<html><body>Error</body></html>", "text/html", "UTF-8")
 
-
-        webView.settings.javaScriptEnabled = true
-        webView.loadUrl(link)
-        webView.webViewClient = WebViewClient()
     }
 }

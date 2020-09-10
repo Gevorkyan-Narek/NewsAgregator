@@ -1,4 +1,4 @@
-package com.cyclone.newsagregator.network
+package com.cyclone.newsagregator.network.rss
 
 import retrofit2.Call
 
